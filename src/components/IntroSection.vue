@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h1>Neon Strays</h1>
     <p>
       We’re an independent band committed to making music outside the mainstream. We don’t release our songs on streaming platforms, and we refuse to take part in the traditional circuits of the music business. No labels, no algorithms, no compromises — just music made with heart, intention, and total creative freedom.
     </p>
@@ -18,6 +17,7 @@
 
 <script>
 import { useTranslationStore } from "../store/translationStore.js";
+import { mapState } from 'pinia'
 
 export default {
   name: 'IntroSection',

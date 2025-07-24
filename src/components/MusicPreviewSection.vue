@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>🎧 Listen & Support</h2>
+    <h2>Listen & Support</h2>
     <div
         v-for="track in tracks"
         :key="track.id"
@@ -15,6 +15,7 @@
 
 <script>
 import {useTranslationStore} from "../store/translationStore.js";
+import { mapState } from 'pinia'
 
 export default {
   name: 'MusicPreviewSection',

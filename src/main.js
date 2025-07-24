@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import './style.scss'
 import App from './App.vue'
-import { useTranslationStore } from '@/stores/translationStore'
+import { useTranslationStore } from './store/translationStore'
 
 const app = createApp(App)
 const pinia = createPinia()

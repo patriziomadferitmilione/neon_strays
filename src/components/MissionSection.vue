@@ -9,6 +9,7 @@
 
 <script>
 import { useTranslationStore } from "../store/translationStore.js";
+import { mapState } from 'pinia'
 
 export default {
   name: 'MissionSection',

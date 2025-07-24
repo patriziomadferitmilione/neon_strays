@@ -16,7 +16,7 @@ import IntroSection from './components/IntroSection.vue'
 import MissionSection from './components/MissionSection.vue'
 import MusicPreviewSection from './components/MusicPreviewSection.vue'
 import { useTranslationStore } from './store/translationStore'
-import { mapState, mapActions } from 'pinia'
+import { mapActions } from 'pinia'
 
 export default {
   name: 'App',
