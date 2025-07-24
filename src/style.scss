@@ -24,6 +24,7 @@
 
 body {
   margin: 0;
+  padding: 0;
   background-color: var(--black);
   color: var(--white);
   box-sizing: border-box;
@@ -34,13 +35,6 @@ body {
   text-align: center;
 }
 
-section {
-  padding: 2rem 1rem;
-}
-
-h1, h2 {
-  margin-bottom: 1rem;
-}
 
 button {
   background-color: var(--green3);
@@ -55,4 +49,13 @@ button {
 audio {
   width: 100%;
   margin: 0.5rem 0;
+}
+
+select {
+  background-color: var(--green3);
+  color: var(--white);
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 1rem;
 }

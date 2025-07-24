@@ -1,0 +1,14 @@
+export default {
+    intro: [
+        "Siamo una band indipendente decisa a fare musica fuori dal mainstream. Non pubblichiamo i nostri brani sulle piattaforme di streaming e rifiutiamo di entrare nei circuiti tradizionali dell’industria musicale. Niente etichette, niente algoritmi, nessun compromesso — solo musica fatta con cuore, intenzione e totale libertà creativa.",
+        "Ogni brano che condividiamo è un pezzo di ciò che siamo. Registriamo, produciamo e distribuiamo tutto da soli perché crediamo che la musica debba arrivare direttamente dall’artista all’ascoltatore — grezza, autentica, non filtrata. Non lo facciamo per le classifiche o la fama. Lo facciamo perché lo amiamo e vogliamo condividerlo con chi davvero ci crede.",
+        "Quando ci supporti, non stai solo acquistando un brano — stai mantenendo vivo un sogno, aiutandoci a finanziare nuova attrezzatura, scrivere nuove canzoni e restare completamente indipendenti. Grazie per essere parte di qualcosa di vero."
+    ],
+    mission: [
+        "La musica underground non è solo un genere — è una mentalità. È l’espressione grezza e sincera di artisti che scelgono di restare fuori dal mainstream, lontani dalle mode e dagli schemi commerciali. È il suono della libertà, della ribellione, della verità — costruito con passione, non con le piattaforme.",
+        "Negli ultimi 20 anni, l’industria musicale è cambiata radicalmente. Dalle prime piattaforme pirata come Napster e LimeWire, ai social media come MySpace e YouTube, sembrava che gli artisti indipendenti avessero finalmente un’opportunità. Ma poi sono arrivati gli algoritmi e lo streaming, e tutto è cambiato di nuovo.",
+        "È per questo che scegliamo una strada diversa.",
+        "Non pubblichiamo in streaming. Non viviamo in funzione dell’algoritmo. Trattiamo la nostra musica per quello che è: arte.",
+        "Questo è rock & roll underground, e siamo fieri di mantenerlo vivo — alle nostre condizioni."
+    ]
+}

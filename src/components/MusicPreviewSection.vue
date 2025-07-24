@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="music">
     <h2>Listen & Support</h2>
     <div
         v-for="track in tracks"
@@ -8,7 +8,7 @@
     >
       <p style="font-weight: bold;">{{ track.title }}</p>
       <audio :src="track.previewUrl" controls preload="none" />
-      <button @click="buyTrack(track)">Buy for €1.00</button>
+      <button @click="buyTrack(track)">Buy for €2.99</button>
     </div>
   </section>
 </template>
@@ -24,9 +24,9 @@ export default {
       translationStore: useTranslationStore(),
 
       tracks: [
-        { id: 1, title: 'Freedom Fire', previewUrl: '/previews/freedom-fire.mp3' },
-        { id: 2, title: 'Echoes of Us', previewUrl: '/previews/echoes-of-us.mp3' },
-        { id: 3, title: 'No Chains', previewUrl: '/previews/no-chains.mp3' }
+        { id: 1, title: 'Let it be me', previewUrl: '/previews/freedom-fire.mp3' },
+        { id: 2, title: 'In my bones', previewUrl: '/previews/echoes-of-us.mp3' },
+        { id: 3, title: 'I will go on', previewUrl: '/previews/no-chains.mp3' }
       ]
     }
   },
@@ -44,6 +44,11 @@ export default {
 
 <style scoped lang="scss">
 section {
+  background: var(--black);
+  height: fit-content;
+  width: 87vw;
+  background: var(--dark-green);
+
   h2 {
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
@@ -68,6 +73,14 @@ section {
   button:hover {
     background-color: var(--green4);
     cursor: pointer;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    text-align: center;
   }
 }
 </style>

@@ -8,8 +8,13 @@ export const useTranslationStore = defineStore('translation', {
     actions: {
         async setLanguage(lang) {
             this.lang = lang
-            const messages = await import(`@/i18n/${lang}.js`)
-            this.translations = messages.default
+            try {
+                const messages = await import(`../translations/${lang}.js`)
+                this.translations = messages.default
+            } catch (e) {
+                console.error(`Translation for '${lang}' not found.`)
+                this.translations = {}
+            }
         }
     }
 })
