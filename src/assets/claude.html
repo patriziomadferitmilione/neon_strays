@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Strays - Electronic Music</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        *, html {
+            font-family: "Lato", sans-serif;
+        }
+
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000E0E 0%, #001F11 50%, #003D22 100%);
+            color: #FFFBFC;
+            min-height: 100vh;
+        }
+
+        :root {
+            --black: #000E0E;
+            --white: #FFFBFC;
+            --red: #BC4C4C;
+            --red2: #B34242;
+            --red3: #A43D3D;
+            --red4: #953737;
+            --dark-green: #001F11;
+            --green: #003D22;
+            --green2: #00522D;
+            --green3: #006638;
+            --green4: #007A43;
+            --blue: #006BA6;
+            --blue2: #006AA3;
+            --blue3: #005D8F;
+            --blue4: #00507A;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 14, 14, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--green);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--white);
+            text-shadow: 0 0 20px var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+            text-shadow: 0 0 5px var(--blue);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--blue), var(--blue2));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, var(--blue2), var(--blue3));
+            box-shadow: 0 5px 15px rgba(0, 107, 166, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--green3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--green3);
+            box-shadow: 0 5px 15px rgba(0, 102, 56, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 107, 166, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 0;
+            text-shadow: 0 0 30px var(--blue);
+            background: linear-gradient(45deg, var(--white), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin: 1rem 0 2rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 100px;
+        }
+
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(0, 61, 34, 0.3);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--white);
+            text-shadow: 0 0 10px var(--blue);
+        }
+
+        /* Music Player */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .track-card {
+            background: linear-gradient(135deg, rgba(0, 31, 17, 0.8), rgba(0, 61, 34, 0.6));
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--green3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .track-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 107, 166, 0.3);
+            border-color: var(--blue);
+        }
+
+        .track-info h3 {
+            margin: 0 0 0.5rem;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        .track-info p {
+            margin: 0 0 1rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .track-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .play-btn {
+            background: linear-gradient(45deg, var(--green3), var(--green4));
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: linear-gradient(45deg, var(--green4), var(--blue));
+            box-shadow: 0 5px 15px rgba(0, 122, 67, 0.4);
+        }
+
+        .track-price {
+            font-weight: 700;
+            color: var(--blue);
+            font-size: 1.1rem;
+        }
+
+        .buy-btn {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, var(--red), var(--red2));
+            border: none;
+            border-radius: 20px;
+            color: var(--white);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            background: linear-gradient(45deg, var(--red2), var(--red3));
+            box-shadow: 0 5px 15px rgba(188, 76, 76, 0.4);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .owned-badge {
+            background: var(--green4);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Auth Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--dark-green), var(--green));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--green3);
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--green3);
+            border-radius: 10px;
+            background: rgba(0, 14, 14, 0.8);
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 10px rgba(0, 107, 166, 0.3);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, rgba(0, 107, 166, 0.1), rgba(0, 61, 34, 0.1));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 2rem auto 0;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid var(--green3);
+            border-radius: 25px;
+            background: rgba(0, 14, 14, 0.8);
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 10px rgba(0, 107, 166, 0.3);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--blue), var(--blue2));
+            border: none;
+            border-radius: 25px;
+            color: var(--white);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: linear-gradient(45deg, var(--blue2), var(--blue3));
+            box-shadow: 0 5px 15px rgba(0, 107, 166, 0.4);
+        }
+
+        /* User Library */
+        .user-library {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .user-library.active {
+            display: block;
+        }
+
+        .library-track {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0, 31, 17, 0.5);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--green2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue), var(--green4));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .music-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .track-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .track-card:nth-child(2) { animation-delay: 0.1s; }
+        .track-card:nth-child(3) { animation-delay: 0.2s; }
+        .track-card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">NEON STRAYS</div>
+            <ul class="nav-links">
+                <li><a href="#music">Music</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                <div id="userMenu" style="display: none;">
+                    <span id="welcomeUser"></span>
+                    <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>NEON STRAYS</h1>
+            <p>Electronic soundscapes for the digital age</p>
+            <a href="#music" class="btn btn-primary">Explore Music</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Music Section -->
+        <section id="music" class="section">
+            <div class="container">
+                <h2>Latest Tracks</h2>
+                <div class="music-grid" id="musicGrid">
+                    <!-- Tracks will be populated by JavaScript -->
+                </div>
+
+                <!-- User Library -->
+                <div class="user-library" id="userLibrary">
+                    <h3>Your Library</h3>
+                    <div id="libraryTracks"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="section">
+            <div class="container">
+                <div class="newsletter">
+                    <h2>Stay in the Loop</h2>
+                    <p>Get notified about new releases, exclusive content, and upcoming shows</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 id="modalTitle">Login</h2>
+            <form id="authForm">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group" id="nameGroup" style="display: none;">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="authSubmit">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                <span id="switchText">Don't have an account?</span>
+                <a href="#" id="switchMode" style="color: var(--blue);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Sample track data
+        const tracks = [
+            {
+                id: 1,
+                title: "Digital Dreams",
+                duration: "3:24",
+                price: 2.99,
+                preview: "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" // Placeholder
+            },
+            {
+                id: 2,
+                title: "Neon Nights",
+                duration: "4:12",
+                price: 2.99,
+                preview: "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" // Placeholder
+            },
+            {
+                id: 3,
+                title: "Synthetic Soul",
+                duration: "3:56",
+                price: 2.99,
+                preview: "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" // Placeholder
+            },
+            {
+                id: 4,
+                title: "Electric Echoes",
+                duration: "5:08",
+                price: 2.99,
+                preview: "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" // Placeholder
+            }
+        ];
+
+        // State management
+        let currentUser = null;
+        let userLibrary = [];
+        let currentlyPlaying = null;
+        let audioElement = null;
+
+        // DOM elements
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const authModal = document.getElementById('authModal');
+        const modalClose = document.getElementById('modalClose');
+        const authForm = document.getElementById('authForm');
+        const musicGrid = document.getElementById('musicGrid');
+        const userLibraryDiv = document.getElementById('userLibrary');
+        const newsletterForm = document.getElementById('newsletterForm');
+
+        // Initialize app
+        function init() {
+            renderTracks();
+            setupEventListeners();
+            checkAuthState();
+        }
+
+        // Render tracks
+        function renderTracks() {
+            musicGrid.innerHTML = tracks.map(track => {
+                const isOwned = userLibrary.includes(track.id);
+                return `
+                    <div class="track-card">
+                        <div class="track-info">
+                            <h3>${track.title}</h3>
+                            <p>Duration: ${track.duration}</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-${track.id}"></div>
+                            </div>
+                        </div>
+                        <div class="track-controls">
+                            <button class="play-btn" onclick="togglePlay(${track.id})">
+                                <span id="play-icon-${track.id}">▶</span>
+                            </button>
+                            <div>
+                                ${isOwned ? 
+                                    '<span class="owned-badge">Owned</span>' : 
+                                    `<span class="track-price">$${track.price}</span>
+                                     <button class="buy-btn" onclick="buyTrack(${track.id})" ${!currentUser ? 'disabled' : ''}>
+                                         ${!currentUser ? 'Login to Buy' : 'Buy'}
+                                     </button>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateLibraryDisplay();
+        }
+
+        // Audio playback
+        function togglePlay(trackId) {
+            const track = tracks.find(t => t.id === trackId);
+            const playIcon = document.getElementById(`play-icon-${trackId}`);
+            
+            if (currentlyPlaying === trackId && audioElement && !audioElement.paused) {
+                audioElement.pause();
+                playIcon.textContent = '▶';
+                currentlyPlaying = null;
+            } else {
+                if (audioElement) {
+                    audioElement.pause();
+                    // Reset all play icons
+                    tracks.forEach(t => {
+                        document.getElementById(`play-icon-${t.id}`).textContent = '▶';
+                    });
+                }
+
+                // For demo purposes, we'll simulate audio playback
+                playIcon.textContent = '⏸';
+                currentlyPlaying = trackId;
+                
+                // Simulate 15-second preview for non-owned tracks
+                const isOwned = userLibrary.includes(trackId);
+                const duration = isOwned ? 240000 : 15000; // 4 minutes vs 15 seconds
+                
+                simulateAudioProgress(trackId, duration);
+            }
+        }
+
+        function simulateAudioProgress(trackId, duration) {
+            const progressBar = document.getElementById(`progress-${trackId}`);
+            let progress = 0;
+            const interval = 100;
+            const increment = (interval / duration) * 100;
+
+            const progressInterval = setInterval(() => {
+                progress += increment;
+                progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    document.getElementById(`play-icon-${trackId}`).textContent = '▶';
+                    currentlyPlaying = null;
+                    progressBar.style.width = '0%';
+                }
+            }, interval);
+        }
+
+        // Purchase system
+        function buyTrack(trackId) {
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+
+            const track = tracks.find(t => t.id === trackId);
+            if (confirm(`Purchase "${track.title}" for $${track.price}?`)) {
+                userLibrary.push(trackId);
+                renderTracks();
+                alert('Track purchased successfully!');
+            }
+        }
+
+        // Authentication
+        function setupEventListeners() {
+            loginBtn.addEventListener('click', () => showAuthModal('login'));
+            signupBtn.addEventListener('click', () => showAuthModal('signup'));
+            logoutBtn.addEventListener('click', logout);
+            modalClose.addEventListener('click', closeAuthModal);
+            authModal.addEventListener('click', (e) => {
+                if (e.target === authModal) closeAuthModal();
+            });
+
+            document.getElementById('switchMode').addEventListener('click', (e) => {
+                e.preventDefault();
+                const isLogin = document.getElementById('modalTitle').textContent === 'Login';
+                showAuthModal(isLogin ? 'signup' : 'login');
+            });
+
+            authForm.addEventListener('submit', handleAuth);
+            newsletterForm.addEventListener('submit', handleNewsletter);
+        }
+
+        function showAuthModal(mode) {
+            const modal = authModal;
+            const title = document.getElementById('modalTitle');
+            const submitBtn = document.getElementById('authSubmit');
+            const nameGroup = document.getElementById('nameGroup');
+            const switchText = document.getElementById('switchText');
+            const switchMode = document.getElementById('switchMode');
+
+            if (mode === 'login') {
+                title.textContent = 'Login';
+                submitBtn.textContent = 'Login';
+                nameGroup.style.display = 'none';
+                switchText.textContent = "Don't have an account?";
+                switchMode.textContent = 'Sign up';
+            } else {
+                title.textContent = 'Sign Up';
+                submitBtn.textContent = 'Sign Up';
+                nameGroup.style.display = 'block';
+                switchText.textContent = 'Already have an account?';
+                switchMode.textContent = 'Login';
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeAuthModal() {
+            authModal.classList.remove('active');
+            authForm.reset();
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const name = document.getElementById('name').value;
+            const isSignup = document.getElementById('modalTitle').textContent === 'Sign Up';
+
+            // Simulate authentication (in real app, this would call your backend)
+            if (isSignup) {
+                currentUser = { email, name: name || email.split('@')[0] };
+                alert('Account created successfully!');
+            } else {
+                currentUser = { email, name: email.split('@')[0] };
+                alert('Logged in successfully!');
+            }
+
+            updateAuthState();
+            closeAuthModal();
+            renderTracks();
+        }
+
+        function logout() {
+            currentUser = null;
+            userLibrary = [];
+            updateAuthState();
+            renderTracks();
+        }
+
+        function updateAuthState() {
+            const authButtons = document.querySelector('.auth-buttons');
+            const userMenu = document.getElementById('userMenu');
+            const welcomeUser = document.getElementById('welcomeUser');
+
+            if (currentUser) {
+                loginBtn.style.display = 'none';
+                signupBtn.style.display = 'none';
+                userMenu.style.display = 'flex';
+                userMenu.style.gap = '1rem';
+                userMenu.style.alignItems = 'center';
+                welcomeUser.textContent = `Welcome, ${currentUser.name}!`;
+                welcomeUser.style.color = 'var(--white)';
+                welcomeUser.style.marginRight = '1rem';
+            } else {
+                loginBtn.style.display = 'inline-block';
+                signupBtn.style.display = 'inline-block';
+                userMenu.style.display = 'none';
+            }
+        }
+
+        function checkAuthState() {
+            // In a real app, you'd check for stored authentication tokens
+            updateAuthState();
+        }
+
+        function updateLibraryDisplay() {
+            if (currentUser && userLibrary.length > 0) {
+                userLibraryDiv.classList.add('active');
+                const libraryTracks = document.getElementById('libraryTracks');
+                libraryTracks.innerHTML = userLibrary.map(trackId => {
+                    const track = tracks.find(t => t.id === trackId);
+                    return `
+                        <div class="library-track">
+                            <div>
+                                <strong>${track.title}</strong>
+                                <span style="opacity: 0.8; margin-left: 1rem;">${track.duration}</span>
+                            </div>
+                            <button class="play-btn" onclick="togglePlay(${track.id})">
+                                <span id="lib-play-icon-${track.id}">▶</span>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                userLibraryDiv.classList.remove('active');
+            }
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing with ${email}!`);
+            e.target.reset();
+        }
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
