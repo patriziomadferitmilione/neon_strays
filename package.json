@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@primeuix/themes": "^1.2.1",
+    "pinia": "^3.0.3",
     "vue": "^3.3.4"
   },
   "devDependencies": {
