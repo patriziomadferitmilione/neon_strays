@@ -2,7 +2,7 @@
   <section id="intro">
     <div class="overlay">
       <div class="content">
-        <p v-for="(line, index) in translations.intro" :key="index">
+        <p v-for="(line, index) in translations[currentLanguage].intro.introCopy" :key="index">
           {{ line }}
         </p>
       </div>
@@ -12,12 +12,23 @@
 
 <script>
   import { useTranslationStore } from '../store/translationStore.js'
-  import { mapState } from 'pinia'
+  import {useMainStore} from "../store/mainStore.js";
 
   export default {
     name: 'IntroSection',
+    data() {
+      return {
+        store: useMainStore(),
+        translationStore: useTranslationStore()
+      }
+    },
     computed: {
-      ...mapState(useTranslationStore, ['translations'])
+      translations() {
+        return this.translationStore.translations
+      },
+      currentLanguage() {
+        return this.translationStore.currentLanguage
+      }
     }
   }
 </script>

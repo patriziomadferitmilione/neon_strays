@@ -1,20 +1,26 @@
 import { defineStore } from 'pinia'
+import { useMainStore } from "./mainStore.js";
+import it from "../translations/it";
+import en from "../translations/en";
+import fr from "../translations/fr";
+import es from "../translations/es";
 
 export const useTranslationStore = defineStore('translation', {
     state: () => ({
-        lang: 'en',
-        translations: {}
+        store: useMainStore(),
+        currentLanguage: 'en',
+        translations: {
+            it,
+            en,
+            fr,
+            es,
+        }
     }),
     actions: {
-        async setLanguage(lang) {
-            this.lang = lang
-            try {
-                const messages = await import(`../translations/${lang}.js`)
-                this.translations = messages.default
-            } catch (e) {
-                console.error(`Translation for '${lang}' not found.`)
-                this.translations = {}
-            }
+        setLanguage(lang) {
+            this.currentLanguage = lang;
+            this.store.menuOpen = false
+            this.store.navDropdownOpen = false
         }
     }
 })
