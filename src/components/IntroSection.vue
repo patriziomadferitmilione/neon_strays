@@ -50,9 +50,14 @@ section {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 8px;
 
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+
     p {
       margin-bottom: 1.5rem;
-      font-size: 1rem;
+      font-size: 1.3rem;
       line-height: 1.5;
     }
   }

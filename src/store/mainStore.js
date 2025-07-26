@@ -8,6 +8,13 @@ export const useMainStore = defineStore('main', {
         token: null,
         user: null,
         showLoginModal: false,
+
+        snackbar: {
+            visible: false,
+            message: '',
+            submessage: '',
+            color: 'green'
+        }
     }),
 
     getters: {
@@ -40,6 +47,13 @@ export const useMainStore = defineStore('main', {
                 this.user = JSON.parse(user);
                 this.isLoggedIn = true;
             }
+        },
+
+        showSnackbar({ message, submessage = '', color = 'green', duration = 3000 }) {
+            this.snackbar = { visible: true, message, submessage, color };
+            setTimeout(() => {
+                this.snackbar.visible = false;
+            }, duration);
         }
     }
 });

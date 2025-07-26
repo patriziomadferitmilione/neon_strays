@@ -41,11 +41,13 @@
         <MissionSection />
         <MusicPreviewSection />
         <Player />
-        <SongManager />
+        <MusicManager />
       </main>
     </div>
 
     <Login v-else />
+
+    <Snackbar />
   </div>
 </template>
 
@@ -60,6 +62,7 @@ import MusicPreviewSection from './components/MusicPreviewSection.vue'
 import MusicManager from './components/MusicManager.vue'
 import Player from './components/Player.vue'
 import Login from './components/Login.vue';
+import Snackbar from './components/Snackbar.vue';
 
 export default {
   name: 'App',
@@ -69,7 +72,8 @@ export default {
     MusicPreviewSection,
     Player,
     Login,
-    SongManager: MusicManager
+    MusicManager,
+    Snackbar
   },
   data() {
     return {

@@ -16,8 +16,8 @@
       </select>
 
       <div class="new-album">
-        <input v-model="newAlbumTitle" type="text" placeholder="New Album Title" />
-        <input v-model="newAlbumRelease" type="date" />
+        <input v-model="albumData.title" type="text" placeholder="New Album Title" />
+        <input v-model="albumData.releaseDate" type="date" />
         <button type="button" @click="createAlbum">Create Album</button>
       </div>
 
@@ -56,7 +56,6 @@
 </template>
 
 <script>
-
 import { useMainStore } from '../store/mainStore';
 import { useMusicStore } from '../store/musicStore';
 
@@ -80,8 +79,10 @@ export default {
         },
         status: ''
       },
-      newAlbumTitle: '',
-      newAlbumRelease: ''
+      albumData: {
+        title: '',
+        releaseDate: '',
+      }
     };
   },
 
@@ -95,19 +96,22 @@ export default {
       this.songData.files[format] = e.target.files[0];
     },
     async createAlbum() {
-      if (!this.newAlbumTitle) return;
+      if (!this.albumData.title) return;
 
-      const newAlbum = await this.musicStore.createAlbum(this.newAlbumTitle, this.newAlbumRelease);
+      const newAlbum = await this.musicStore.createAlbum(this.albumData.title, this.albumData.releaseDate);
       if (newAlbum) {
         this.songData.albumId = newAlbum._id;
-        this.newAlbumTitle = '';
-        this.newAlbumRelease = '';
+        this.albumData.title = '';
+        this.albumData.releaseDate = '';
       }
     },
     async handleUpload() {
       const { title, artist, albumId, access, releaseDate, files } = this.songData;
       if (!files.mp3) {
-        this.songData.status = '❌ MP3 is required';
+        this.store.showSnackbar({
+          message: 'MP3 is required',
+          color: 'orange'
+        });
         return;
       }
 
@@ -133,11 +137,19 @@ export default {
 
         if (!res.ok) throw new Error('Upload failed');
 
-        this.songData.status = '✅ Uploaded!';
+        this.store.showSnackbar({
+          message: 'Upload successful!',
+          submessage: 'Your new track is now live.',
+          color: 'green'
+        });
         this.resetForm();
         await this.musicStore.fetchSongs();
       } catch (err) {
-        this.songData.status = '❌ Upload failed';
+        this.store.showSnackbar({
+          message: 'Upload failed',
+          submessage: 'Check your file or connection.',
+          color: 'red'
+        });
       }
     },
     resetForm() {

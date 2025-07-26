@@ -86,12 +86,12 @@ section {
 
   h2 {
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
 
   p {
     margin-bottom: 1.5rem;
-    font-size: 1rem;
+    font-size: 1.3rem;
     line-height: 1.6;
   }
 }
@@ -140,6 +140,12 @@ section {
       img {
         max-width: 100%;
       }
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      line-height: 1.6;
     }
   }
 }
