@@ -204,82 +204,91 @@ export default {
 
 <style scoped>
 .music-manager {
-  padding: 2rem;
+  max-width: 100%;
   color: white;
   background: var(--black);
-}
-
-.upload-form {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  justify-content: center;
+  align-items: center;
 
-  input, button {
-    padding: 0.6rem;
-    font-size: 1rem;
-    border-radius: 4px;
+  h2 {
+    font-size: 2rem;
   }
 
-  button {
-    background: var(--green3);
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-
-  .new-album {
-    border: 1px dashed var(--green3);
-    padding: 1rem;
-    border-radius: 6px;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    background-color: rgba(0, 128, 0, 0.1);
-
+  .upload-form {
+    width: 90%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
 
-    h4 {
-      margin-bottom: 0.5rem;
-      color: var(--green3);
-    }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="file"] {
-      padding: 0.5rem;
+    input, button {
+      padding: 0.6rem;
+      font-size: 1rem;
       border-radius: 4px;
     }
 
     button {
-      align-self: flex-start;
-      margin-top: 0.5rem;
-      background-color: var(--green3);
-      color: white;
+      background: var(--green3);
       border: none;
-      padding: 0.5rem 1rem;
+      color: white;
       cursor: pointer;
-      border-radius: 4px;
     }
+
+    .new-album {
+      border: 1px dashed var(--green3);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      background-color: rgba(0, 128, 0, 0.1);
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      h4 {
+        margin-bottom: 0.5rem;
+        color: var(--green3);
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="file"] {
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
+
+      button {
+        align-self: flex-start;
+        margin-top: 0.5rem;
+        background-color: var(--green3);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+    }
+
   }
 
-}
+  .uploaded-songs li {
+    margin-bottom: 0.5rem;
+  }
 
-.uploaded-songs li {
-  margin-bottom: 0.5rem;
-}
+  .upload-form label {
+    font-weight: bold;
+    margin-top: 1rem;
+    display: block;
+    color: var(--green3);
+  }
 
-.upload-form label {
-  font-weight: bold;
-  margin-top: 1rem;
-  display: block;
-  color: var(--green3);
-}
-
-.upload-form select,
-.upload-form input[type="date"] {
-  padding: 0.5rem;
-  border-radius: 4px;
+  .upload-form select,
+  .upload-form input[type="date"] {
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
 }
 </style>
