@@ -41,6 +41,7 @@
         <MissionSection />
         <MusicPreviewSection />
         <Player />
+        <SongManager />
       </main>
     </div>
 
@@ -56,6 +57,7 @@ import { useTranslationStore } from './store/translationStore'
 import IntroSection from './components/IntroSection.vue'
 import MissionSection from './components/MissionSection.vue'
 import MusicPreviewSection from './components/MusicPreviewSection.vue'
+import MusicManager from './components/MusicManager.vue'
 import Player from './components/Player.vue'
 import Login from './components/Login.vue';
 
@@ -66,7 +68,8 @@ export default {
     MissionSection,
     MusicPreviewSection,
     Player,
-    Login
+    Login,
+    SongManager: MusicManager
   },
   data() {
     return {

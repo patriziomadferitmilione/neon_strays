@@ -9,8 +9,15 @@
         <button class="buy-ep">Buy Full EP</button>
 
         <ul class="tracklist">
-          <li v-for="(song, index) in songs" :key="index">
-            <span>{{ index + 1 }}. {{ song.title }}</span>
+          <li v-for="(song, index) in musicStore.songs" :key="index">
+            <div class="song-info">
+              <img
+                  :src="getCover(song)"
+                  alt="cover"
+                  class="track-cover"
+              />
+              <span>{{ index + 1 }}. {{ song.title }}</span>
+            </div>
             <div class="actions">
               <button @click="play(song)">▶</button>
               <button @click="buy(song)">Buy ${{ song.price }}</button>
@@ -23,9 +30,10 @@
 </template>
 
 <script>
-import {useTranslationStore} from "../store/translationStore.js";
-import {useMainStore} from "../store/mainStore.js";
+import { useTranslationStore } from "../store/translationStore.js";
+import { useMainStore } from "../store/mainStore.js";
 import { usePlayerStore } from '../store/playerStore'
+import { useMusicStore } from '../store/musicStore.js';
 
 export default {
   name: 'MusicPreviewSection',
@@ -33,16 +41,22 @@ export default {
     return {
       store: useMainStore(),
       translationStore: useTranslationStore(),
+      musicStore: useMusicStore(),
 
-      songs: [
-        { title: 'No Chains Left', url: '/songs/01-no-chains.mp3', price: '1.99' },
-        { title: 'Algorithm Burnout', url: '/songs/02-algorithm.mp3', price: '1.99' },
-        { title: 'Underground Pulse', url: '/songs/03-pulse.mp3', price: '1.99' },
-        { title: 'Echo Chamber Blues', url: '/songs/04-echo.mp3', price: '1.99' },
-        { title: 'DIY Anthem', url: '/songs/05-diy.mp3', price: '1.99' }
-      ]
+      // songs: [
+      //   { title: 'No Chains Left', url: '/songs/01-no-chains.mp3', price: '2.99' },
+      //   { title: 'Algorithm Burnout', url: '/songs/02-algorithm.mp3', price: '2.99' },
+      //   { title: 'Underground Pulse', url: '/songs/03-pulse.mp3', price: '2.99' },
+      //   { title: 'Echo Chamber Blues', url: '/songs/04-echo.mp3', price: '2.99' },
+      //   { title: 'DIY Anthem', url: '/songs/05-diy.mp3', price: '2.99' }
+      // ]
     }
   },
+
+  async mounted() {
+    await this.musicStore.fetchSongs();
+  },
+
   computed: {
     translations() {
       return this.translationStore.translations
@@ -58,6 +72,11 @@ export default {
     },
     buy(song) {
       alert(`Buying "${song.title}" for $${song.price} – (Payment system not implemented)`)
+    },
+    getCover(song) {
+      if (song.cover) return `/${song.cover}`;
+      if (song.album?.cover) return `/${song.album.cover}`;
+      return '/vynil.jpg?url';
     }
   }
 }
@@ -126,6 +145,22 @@ export default {
             color: var(--green3);
             border-radius: 4px;
             cursor: pointer;
+          }
+
+          .song-info {
+            .track-cover {
+              width: 50px;
+              height: 50px;
+              object-fit: cover;
+              border-radius: 4px;
+              margin-right: 1rem;
+            }
+
+            .song-info {
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+            }
           }
         }
       }
