@@ -2,6 +2,7 @@
   <section id="intro">
     <div class="overlay">
       <div class="content">
+        <h1>Neon Strays</h1>
         <p v-for="(line, index) in translations[currentLanguage].intro.introCopy" :key="index">
           {{ line }}
         </p>
@@ -43,6 +44,7 @@ section {
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 2rem 0 2rem 0;
 
   .content {
     background: rgba(0, 0, 0, 0.4);

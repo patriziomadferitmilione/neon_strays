@@ -3,7 +3,7 @@
     <h2>{{ translations[currentLanguage].music.title }}</h2>
 
     <div class="ep-container">
-      <img class="ep-cover" src="/article-one.png?url" alt="EP Cover" />
+      <img class="ep-cover" src="/almostasif.png?url" alt="EP Cover" />
       <div class="ep-info">
         <h3>Debut EP – <span class="price">$9.99</span></h3>
         <button class="buy-ep">Buy Full EP</button>
