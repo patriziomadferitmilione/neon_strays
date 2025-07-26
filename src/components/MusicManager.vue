@@ -15,12 +15,6 @@
         </option>
       </select>
 
-      <div class="new-album">
-        <input v-model="albumData.title" type="text" placeholder="New Album Title" />
-        <input v-model="albumData.releaseDate" type="date" />
-        <button type="button" @click="createAlbum">Create Album</button>
-      </div>
-
       <label>Access:</label>
       <select v-model="songData.access">
         <option value="free">Free</option>
@@ -43,7 +37,19 @@
       <input type="file" @change="onFileChange($event, 'wav')" accept="audio/wav" />
 
       <button type="submit">Upload Song</button>
-      <p v-if="songData.status" class="status">{{ songData.status }}</p>
+
+      <!-- Album Creation Section -->
+      <div class="new-album">
+        <h4>Create New Album</h4>
+
+        <input v-model="albumData.title" type="text" placeholder="Album Title" />
+        <input v-model="albumData.releaseDate" type="date" />
+
+        <label>Album Cover:</label>
+        <input type="file" @change="onAlbumCoverChange" accept="image/*" />
+
+        <button type="button" @click="createAlbum">Add Album</button>
+      </div>
     </form>
 
     <!-- Song List -->
@@ -77,11 +83,11 @@ export default {
           wav: null,
           cover: null
         },
-        status: ''
       },
       albumData: {
         title: '',
         releaseDate: '',
+        cover: null
       }
     };
   },
@@ -95,14 +101,44 @@ export default {
     onFileChange(e, format) {
       this.songData.files[format] = e.target.files[0];
     },
+    onAlbumCoverChange(e) {
+      this.albumData.cover = e.target.files[0];
+    },
     async createAlbum() {
       if (!this.albumData.title) return;
 
-      const newAlbum = await this.musicStore.createAlbum(this.albumData.title, this.albumData.releaseDate);
-      if (newAlbum) {
+      const formData = new FormData();
+      formData.append('title', this.albumData.title);
+      if (this.albumData.releaseDate) formData.append('releaseDate', this.albumData.releaseDate);
+      if (this.albumData.cover) formData.append('cover', this.albumData.cover);
+
+      try {
+        const res = await fetch('http://localhost:5000/api/albums', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${this.store.token}`
+          },
+          body: formData
+        });
+
+        if (!res.ok) throw new Error('Album creation failed');
+
+        const newAlbum = await res.json();
+        this.musicStore.albums.push(newAlbum);
         this.songData.albumId = newAlbum._id;
-        this.albumData.title = '';
-        this.albumData.releaseDate = '';
+        this.albumData = { title: '', releaseDate: '', cover: null };
+
+        this.store.showSnackbar({
+          message: 'Album created!',
+          submessage: `Added "${newAlbum.title}" to album list.`,
+          color: 'green'
+        });
+      } catch (err) {
+        this.store.showSnackbar({
+          message: 'Failed to create album',
+          submessage: err.message,
+          color: 'red'
+        });
       }
     },
     async handleUpload() {
@@ -160,7 +196,6 @@ export default {
         access: 'free',
         releaseDate: '',
         files: { mp3: null, aac: null, wav: null },
-        status: ''
       };
     }
   }
@@ -193,9 +228,42 @@ export default {
     cursor: pointer;
   }
 
-  .status {
-    font-weight: bold;
+  .new-album {
+    border: 1px dashed var(--green3);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: rgba(0, 128, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    h4 {
+      margin-bottom: 0.5rem;
+      color: var(--green3);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="file"] {
+      padding: 0.5rem;
+      border-radius: 4px;
+    }
+
+    button {
+      align-self: flex-start;
+      margin-top: 0.5rem;
+      background-color: var(--green3);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
   }
+
 }
 
 .uploaded-songs li {
